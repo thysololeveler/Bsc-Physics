@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B.Sc. Physics — Module Record · Aayush Deo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBFBFD;
+    --ink:#16203A;
+    --slate:#5A6478;
+    --hair:#E2E5EC;
+    --hair-strong:#CBD0DA;
+    --accent:#9A7B2E;       /* ochre — reserved for top results */
+    --chip-bg:#F1F2F6;
+    --navy-soft:#243152;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,sans-serif;
+    line-height:1.5;
+    font-size:15px;
+    padding:0 20px;
+  }
+  .wrap{max-width:900px;margin:0 auto;padding:56px 0 80px;}
+
+  /* ---- Header ---- */
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--slate);margin-bottom:18px;
+  }
+  h1{
+    font-family:"IBM Plex Serif",serif;
+    font-weight:600;font-size:38px;line-height:1.1;
+    letter-spacing:-.01em;margin-bottom:6px;
+  }
+  h1 .sub{display:block;font-size:20px;font-weight:400;color:var(--slate);margin-top:8px;}
+  .candidate{margin-top:18px;font-size:15px;color:var(--ink);}
+  .candidate strong{font-weight:600;}
+
+  .meta-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--hair);border:1px solid var(--hair);
+    margin:30px 0 12px;
+  }
+  .meta-cell{background:var(--paper);padding:14px 16px;}
+  .meta-cell .k{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate);}
+  .meta-cell .v{font-size:15px;font-weight:500;margin-top:4px;}
+  .meta-cell .v.big{font-size:22px;font-family:"IBM Plex Mono",monospace;}
+  .meta-cell .v .accent{color:var(--accent);}
+
+  .grade-note{font-size:12.5px;color:var(--slate);margin-bottom:44px;}
+  .grade-note .bav{color:var(--ink);font-weight:500;}
+
+  /* ---- Semester block ---- */
+  .sem{margin-bottom:38px;}
+  .sem-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:2px;
+    gap:12px;flex-wrap:wrap;
+  }
+  .sem-head .left{display:flex;align-items:baseline;gap:14px;}
+  .sem-no{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--accent);font-weight:500;}
+  .sem-title{font-family:"IBM Plex Serif",serif;font-size:19px;font-weight:600;}
+  .sem-dates{font-size:12px;color:var(--slate);font-family:"IBM Plex Mono",monospace;}
+  .sem-stats{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--slate);}
+  .sem-stats b{color:var(--ink);font-weight:500;}
+
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  thead th{
+    font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--slate);font-weight:500;
+    text-align:left;padding:9px 10px;border-bottom:1px solid var(--hair-strong);
+  }
+  th.num,td.num{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;}
+  tbody td{padding:9px 10px;border-bottom:1px solid var(--hair);vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  .module{font-weight:400;}
+
+  .chip{
+    display:inline-block;min-width:30px;text-align:center;
+    font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:500;
+    padding:2px 8px;border-radius:3px;background:var(--chip-bg);color:var(--navy-soft);
+    border:1px solid var(--hair-strong);
+  }
+  .chip.o{background:#F6EFD9;color:var(--accent);border-color:#E6D7A6;}
+  .chip.a{background:#E8ECF5;color:var(--navy-soft);border-color:#D2DAEC;}
+
+  /* ---- Legend ---- */
+  .legend{
+    margin-top:54px;border:1px solid var(--hair);background:#fff;
+    padding:24px 26px;
+  }
+  .legend h2{font-family:"IBM Plex Serif",serif;font-size:16px;margin-bottom:16px;font-weight:600;}
+  .legend-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+  .legend table{font-size:13px;}
+  .legend td,.legend th{padding:5px 8px;}
+  .legend .foot{font-size:12px;color:var(--slate);margin-top:14px;line-height:1.55;}
+
+  footer{margin-top:40px;font-size:11.5px;color:var(--slate);font-family:"IBM Plex Mono",monospace;line-height:1.7;}
+  footer a{color:var(--slate);}
+
+  @media (max-width:640px){
+    .wrap{padding:36px 0 60px;}
+    h1{font-size:28px;}
+    h1 .sub{font-size:17px;}
+    .meta-grid{grid-template-columns:repeat(2,1fr);}
+    .legend-grid{grid-template-columns:1fr;}
+    table{font-size:13px;}
+    tbody td,thead th{padding:8px 7px;}
+    .module{font-size:12.5px;}
+  }
+  @media print{
+    body{padding:0;font-size:12px;}
+    .wrap{padding:0;max-width:100%;}
+    .sem{break-inside:avoid;}
+    .legend{break-inside:avoid;}
+    h1{font-size:30px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Official Module Record · University of Mumbai</div>
+  <h1>Bachelor of Science <span class="sub">Physics (Major) · 2019 – 2022</span></h1>
+  <p class="candidate"><strong>Aayush Rajeev Anjana Deo</strong> · Jai Hind College (Autonomous), Mumbai · Medium of instruction: English</p>
+
+  <div class="meta-grid">
+    <div class="meta-cell"><div class="k">Final CGPA</div><div class="v big"><span class="accent">8.45</span> / 10</div></div>
+    <div class="meta-cell"><div class="k">Class</div><div class="v">First Class · Grade A</div></div>
+    <div class="meta-cell"><div class="k">Duration</div><div class="v">6 Semesters</div></div>
+    <div class="meta-cell"><div class="k">Credit points (listed)</div><div class="v">150</div></div>
+  </div>
+  <p class="grade-note">Grading scale: 10-point, absolute (see legend below). <span class="bav">Indicative German equivalent (Modified Bavarian Formula): ≈ 1.7.</span></p>
+
+  <!-- SEM I -->
+  <section class="sem">
+    <div class="sem-head">
+      <div class="left"><span class="sem-no">SEM&nbsp;I</span><span class="sem-title">First Year</span><span class="sem-dates">Jun – Oct 2019</span></div>
+      <div class="sem-stats">SGPI <b>6.8</b> · Credits <b>20</b></div>
+    </div>
+    <table>
+      <thead><tr><th>Module</th><th class="num">Marks /100</th><th>Grade</th><th class="num">Credits</th><th class="num">GP</th></tr></thead>
+      <tbody>
+        <tr><td class="module">Mechanics &amp; Thermodynamics I</td><td class="num">70</td><td><span class="chip a">A+</span></td><td class="num">2</td><td class="num">9</td></tr>
+        <tr><td class="module">Vector Calculus &amp; Modern Physics</td><td class="num">52</td><td><span class="chip">B</span></td><td class="num">2</td><td class="num">6</td></tr>
+        <tr><td class="module">Physics Practical I</td><td class="num">45</td><td><span class="chip">C</span></td><td class="num">2</td><td class="num">5</td></tr>
+        <tr><td class="module">Concepts of Physical &amp; Inorganic Chemistry I</td><td class="num">54</td><td><span class="chip">B</span></td><td class="num">2</td><td class="num">6</td></tr>
+        <tr><td class="module">Concepts of Organic &amp; Inorganic Chemistry I</td><td class="num">53</td><td><span class="chip">B</span></td><td class="num">2</td><td class="num">6</td></tr>
+        <tr><td class="module">Chemistry Practical I</td><td class="num">70</td><td><span class="chip a">A+</span></td><td class="num">2</td><td class="num">9</td></tr>
+        <tr><td class="module">Life Sciences at Molecular &amp; Cellular Level</td><td class="num">49</td><td><span class="chip">C</span></td><td class="num">2</td><td class="num">5</td></tr>
+        <tr><td class="module">Introduction to Plant &amp; Animal Life Processes</td><td class="num">61</td><td><span class="chip a">A</span></td><td class="num">2</td><td class="num">8</td></tr>
+        <tr><td class="module">Life Sciences Practical I</td><td class="num">49</td><td><span class="chip">C</span></td><td class="num">2</td><td class="num">5</td></tr>
+        <tr><td class="module">Foundation Course: Communication Skills in English I</td><td class="num">—</td><td><span class="chip a">A+</span></td><td class="num">2</td><td class="num">9</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SEM II -->
+  <section class="sem">
+    <div class="sem-head">
+      <div class="left"><span class="sem-no">SEM&nbsp;II</span><span class="sem-title">First Year</span><span class="sem-dates">Nov 2019 – Apr 2020</span></div>
+      <div class="sem-stats">SGPI <b>7.7</b> · Credits <b>20</b></div>
+    </div>
+    <table>
+      <thead><tr><th>Module</th><th class="num">Marks /100</th><th>Grade</th><th class="num">Credits</th><th class="num">GP</th></tr></thead>
+      <tbody>
+        <tr><td class="module">Mathematical Physics, Waves &amp; Oscillations</td><td class="num">80</td><td><span class="chip o">O</span></td><td class="num">2</td><td class="num">10</td></tr>
+        <tr><td class="module">Electricity &amp; Electronics</td><td class="num">65</td><td><span class="chip a">A</span></td><td class="num">2</td><td class="num">8</td></tr>
+        <tr><td class="module">Physics Practical II</td><td class="num">45</td><td><span class="chip">C</span></td><td class="num">2</td><td class="num">5</td></tr>
+        <tr><td class="module">Concepts of Physical &amp; Inorganic Chemistry II</td><td class="num">57</td><td><span class="chip">B+</span></td><td class="num">2</td><td class="num">7</td></tr>
+        <tr><td class="module">Concepts of Organic &amp; Coordination Chemistry</td><td class="num">70</td><td><span class="chip a">A+</span></td><td class="num">2</td><td class="num">9</td></tr>
+        <tr><td class="module">Chemistry Practical II</td><td class="num">70</td><td><span class="chip a">A+</span></td><td class="num">2</td><td class="num">9</td></tr>
+        <tr><td class="module">Life Sciences at Molecular &amp; Cellular Level II</td><td class="num">64</td><td><span class="chip a">A</span></td><td class="num">2</td><td class="num">8</td></tr>
+        <tr><td class="module">Elementary Genetics, Ecology &amp; Behaviour</td><td class="num">55</td><td><span class="chip">B+</span></td><td class="num">2</td><td class="num">7</td></tr>
+        <tr><td class="module">Life Sciences Practical II</td><td class="num">49</td><td><span class="chip">C</span></td><td class="num">2</td><td class="num">5</td></tr>
+        <tr><td class="module">Foundation Course II</td><td class="num">72</td><td><span class="chip a">A+</span></td><td class="num">2</td><td class="num">9</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SEM III -->
+  <section class="sem">
+    <div class="sem-head">
+      <div class="left"><span class="sem-no">SEM&nbsp;III</span><span class="sem-title">Second Year</span><span class="sem-dates">Oct 2020 – Jan 2021</span></div>
+      <div class="sem-stats">SGPI <b>9.25</b> · Credits <b>26</b></div>
+    </div>
+    <table>
+      <thead><tr><th>Module</th><th class="num">Marks /100</th><th>Grade</th><th class="num">Credits</th><th class="num">GP</th></tr></thead>
+      <tbody>
+        <tr><td class="module">Mechanics &amp; Thermodynamics II</td><td class="num">96</td><td><span class="chip o">O</span></td><td class="num">3</td><td class="num">10</td></tr>
+        <tr><td class="module">Vector Calculus II &amp; Analog Electronics</td><td class="num">92</td><td><span class="chip o">O</span></td><td class="num">3</td><td class="num">10</td></tr>
+        <tr><td class="module">Applied Physics I</td><td class="num">86</td><td><span class="chip o">O</span></td><td class="num">3</td><td class="num">10</td></tr>
+        <tr><td class="module">Physics Practical III</td><td class="num">97</td><td><span class="chip o">O</span></td><td class="num">2.5</td><td class="num">10</td></tr>
+        <tr><td class="module">Principles of Physical &amp; Analytical Chemistry I</td><td class="num">76</td><td><span class="chip a">A+</span></td><td class="num">3</td><td class="num">9</td></tr>
+        <tr><td class="module">Principles of Inorganic Chemistry I</td><td class="num">57</td><td><span class="chip">B+</span></td><td class="num">3</td><td class="num">7</td></tr>
+        <tr><td class="module">Principles of Organic Chemistry I</td><td class="num">81</td><td><span class="chip o">O</span></td><td class="num">3</td><td class="num">10</td></tr>
+        <tr><td class="module">Practical Course Work in Chemistry III</td><td class="num">58</td><td><span class="chip">B+</span></td><td class="num">2.5</td><td class="num">7</td></tr>
+        <tr><td class="module">Foundation Course III</td><td class="num">95</td><td><span class="chip o">O</span></td><td class="num">3</td><td class="num">10</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SEM IV -->
+  <section class="sem">
+    <div class="sem-head">
+      <div class="left"><span class="sem-no">SEM&nbsp;IV</span><span class="sem-title">Second Year</span><span class="sem-dates">Feb – May 2021</span></div>
+      <div class="sem-stats">SGPI <b>9.33</b> · Credits <b>26</b></div>
+    </div>
+    <table>
+      <thead><tr><th>Module</th><th class="num">Marks /100</th><th>Grade</th><th class="num">Credits</th><th class="num">GP</th></tr></thead>
+      <tbody>
+        <tr><td class="module">Foundation Course IV</td><td class="num">100</td><td><span class="chip o">O</span></td><td class="num">3</td><td class="num">10</td></tr>
+        <tr><td class="module">Optics &amp; Digital Electronics</td><td class="num">80</td><td><span class="chip o">O</span></td><td class="num">3</td><td class="num">10</td></tr>
+        <tr><td class="module">Quantum Mechanics</td><td class="num">74</td><td><span class="chip a">A</span></td><td class="num">3</td><td class="num">9</td></tr>
+        <tr><td class="module">Applied Physics II</td><td class="num">61</td><td><span class="chip a">A</span></td><td class="num">3</td><td class="num">8</td></tr>
+        <tr><td class="module">Physics Practical IV</td><td class="num">93</td><td><span class="chip o">O</span></td><td class="num">2.5</td><td class="num">10</td></tr>
+        <tr><td class="module">Principles of Physical &amp; Analytical Chemistry II</td><td class="num">91</td><td><span class="chip o">O</span></td><td class="num">3</td><td class="num">10</td></tr>
+        <tr><td class="module">Principles of Inorganic Chemistry II</td><td class="num">70</td><td><span class="chip a">A</span></td><td class="num">3</td><td class="num">9</td></tr>
+        <tr><td class="module">Principles of Organic Chemistry II</td><td class="num">70</td><td><span class="chip a">A</span></td><td class="num">3</td><td class="num">9</td></tr>
+        <tr><td class="module">Practical Coursework in Chemistry IV</td><td class="num">70</td><td><span class="chip a">A</span></td><td class="num">2.5</td><td class="num">9</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SEM V -->
+  <section class="sem">
+    <div class="sem-head">
+      <div class="left"><span class="sem-no">SEM&nbsp;V</span><span class="sem-title">Third Year</span><span class="sem-dates">Oct – Dec 2021</span></div>
+      <div class="sem-stats">SGPI <b>9.59</b> · Credits <b>29</b></div>
+    </div>
+    <table>
+      <thead><tr><th>Module</th><th class="num">Marks /100</th><th>Grade</th><th class="num">Credits</th><th class="num">GP</th></tr></thead>
+      <tbody>
+        <tr><td class="module">Mathematical, Thermal &amp; Statistical Physics</td><td class="num">70</td><td><span class="chip a">A+</span></td><td class="num">4</td><td class="num">9</td></tr>
+        <tr><td class="module">Electronics</td><td class="num">74</td><td><span class="chip a">A+</span></td><td class="num">4</td><td class="num">9</td></tr>
+        <tr><td class="module">Atomic &amp; Molecular Physics</td><td class="num">94</td><td><span class="chip o">O</span></td><td class="num">4</td><td class="num">10</td></tr>
+        <tr><td class="module">Electrodynamics</td><td class="num">74</td><td><span class="chip a">A+</span></td><td class="num">4</td><td class="num">9</td></tr>
+        <tr><td class="module">Applied Component: Analog Circuits, Instruments &amp; Consumer Appliances</td><td class="num">85</td><td><span class="chip o">O</span></td><td class="num">2.5</td><td class="num">10</td></tr>
+        <tr><td class="module">Physics Practical I</td><td class="num">90</td><td><span class="chip o">O</span></td><td class="num">4</td><td class="num">10</td></tr>
+        <tr><td class="module">Physics Practical II</td><td class="num">87</td><td><span class="chip o">O</span></td><td class="num">4</td><td class="num">10</td></tr>
+        <tr><td class="module">Physics Applied Component — Practicals</td><td class="num">90</td><td><span class="chip o">O</span></td><td class="num">2.5</td><td class="num">10</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SEM VI -->
+  <section class="sem">
+    <div class="sem-head">
+      <div class="left"><span class="sem-no">SEM&nbsp;VI</span><span class="sem-title">Third Year</span><span class="sem-dates">Feb – Apr 2022</span></div>
+      <div class="sem-stats">SGPI <b>8.03</b> · Credits <b>29</b></div>
+    </div>
+    <table>
+      <thead><tr><th>Module</th><th class="num">Marks /100</th><th>Grade</th><th class="num">Credits</th><th class="num">GP</th></tr></thead>
+      <tbody>
+        <tr><td class="module">Classical Mechanics <span style="color:var(--slate);font-size:11px;">(cleared Sep 2022)</span></td><td class="num">50</td><td><span class="chip">B</span></td><td class="num">4</td><td class="num">6</td></tr>
+        <tr><td class="module">Solid State Physics</td><td class="num">71</td><td><span class="chip a">A+</span></td><td class="num">4</td><td class="num">9</td></tr>
+        <tr><td class="module">Nuclear Physics</td><td class="num">52</td><td><span class="chip">B</span></td><td class="num">4</td><td class="num">6</td></tr>
+        <tr><td class="module">Special Theory of Relativity</td><td class="num">53</td><td><span class="chip">B</span></td><td class="num">4</td><td class="num">6</td></tr>
+        <tr><td class="module">Applied Component: 8085 Microprocessor, C++ Programming</td><td class="num">62</td><td><span class="chip a">A</span></td><td class="num">2.5</td><td class="num">8</td></tr>
+        <tr><td class="module">Physics Practicals I (SPHY601 &amp; SPHY602)</td><td class="num">91</td><td><span class="chip o">O</span></td><td class="num">4</td><td class="num">10</td></tr>
+        <tr><td class="module">Physics Practicals II (SPHY603 &amp; SPHY604)</td><td class="num">91</td><td><span class="chip o">O</span></td><td class="num">4</td><td class="num">10</td></tr>
+        <tr><td class="module">Physics Applied Component — Practicals</td><td class="num">94</td><td><span class="chip o">O</span></td><td class="num">2.5</td><td class="num">10</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <h2>How to read this record</h2>
+    <div class="legend-grid">
+      <div>
+        <table>
+          <thead><tr><th>Grade</th><th>Points</th><th>Marks</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td>O</td><td>10</td><td>80–100</td><td>Outstanding</td></tr>
+            <tr><td>A+</td><td>9</td><td>70–79.99</td><td>Excellent</td></tr>
+            <tr><td>A</td><td>8</td><td>60–69.99</td><td>Very Good</td></tr>
+            <tr><td>B+</td><td>7</td><td>55–59.99</td><td>Good</td></tr>
+            <tr><td>B</td><td>6</td><td>50–54.99</td><td>Above Average</td></tr>
+            <tr><td>C</td><td>5</td><td>45–49.99</td><td>Average</td></tr>
+            <tr><td>D</td><td>4</td><td>40–44.99</td><td>Pass</td></tr>
+            <tr><td>F</td><td>—</td><td>&lt;40</td><td>Fail</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <p class="foot">
+          <strong>SGPI</strong> = Semester Grade Point Index (semester average on the 10-point scale).
+          <strong>CGPA</strong> = Cumulative Grade Point Average across all six semesters.
+          <strong>GP</strong> = grade points awarded for the module.
+        </p>
+        <p class="foot">
+          The degree is a three-year, six-semester programme under the autonomous Credit &amp; Grading System of the University of Mumbai. All instruction and examination was conducted in English. Classical Mechanics (Sem VI) was cleared in the September 2022 supplementary examination; the final CGPA reflects this.
+        </p>
+        <p class="foot">
+          The German equivalent shown (≈ 1.7) is an indicative conversion via the Modified Bavarian Formula and is provided for reference only; the binding conversion is determined by uni-assist / the admitting university.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Source: Official Transcripts, Jai Hind College (Autonomous), University of Mumbai · Ref. JH · issued Mar 2024<br>
+    Candidate: Aayush Rajeev Anjana Deo · B.Sc. Physics (Major), 2019–2022
+  </footer>
+
+</div>
+</body>
+</html>
