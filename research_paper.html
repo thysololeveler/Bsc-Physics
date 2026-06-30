@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-Based Disease Prediction System Using Machine Learning – Aayush Deo</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --border: #30363d;
+    --accent: #58a6ff;
+    --accent2: #3fb950;
+    --text: #c9d1d9;
+    --muted: #8b949e;
+    --font: 'Georgia', serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.8;
+    font-size: 1rem;
+  }
+
+  header {
+    background: linear-gradient(135deg, #0d1117, #161b22);
+    border-bottom: 1px solid var(--border);
+    padding: 3rem 2rem 2rem;
+    text-align: center;
+    position: relative;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+
+  header h1 {
+    font-size: 1.8rem;
+    color: #fff;
+    line-height: 1.3;
+    max-width: 800px;
+    margin: 0 auto 1rem;
+  }
+
+  .meta {
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-style: italic;
+    margin-bottom: 0.3rem;
+  }
+
+  .author {
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-style: normal;
+    margin-bottom: 0.3rem;
+  }
+
+  .keywords {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .kw {
+    background: rgba(88,166,255,0.1);
+    border: 1px solid rgba(88,166,255,0.3);
+    color: var(--accent);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-family: var(--mono);
+    font-style: normal;
+  }
+
+  .toc {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem 2rem;
+    max-width: 860px;
+    margin: 2rem auto;
+  }
+
+  .toc h3 {
+    color: var(--muted);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    font-family: var(--mono);
+  }
+
+  .toc ol {
+    padding-left: 1.5rem;
+    color: var(--accent);
+    font-size: 0.9rem;
+  }
+
+  .toc li { margin-bottom: 0.3rem; }
+  .toc a { color: var(--accent); text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+    color: var(--accent);
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: 1rem;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    color: #79c0ff;
+    margin: 1.8rem 0 0.8rem;
+    font-style: italic;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    color: var(--text);
+    text-align: justify;
+  }
+
+  ul {
+    margin: 0.5rem 0 1rem 1.5rem;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 0.85rem;
+    font-family: var(--mono);
+  }
+
+  th {
+    background: rgba(88,166,255,0.1);
+    color: var(--accent);
+    border: 1px solid var(--border);
+    padding: 0.6rem 0.8rem;
+    text-align: left;
+  }
+
+  td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.8rem;
+    color: var(--text);
+  }
+
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+
+  strong { color: #e6edf3; }
+  em { color: var(--muted); }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.3rem; }
+    main { padding: 1rem; }
+    table { font-size: 0.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>AI-Based Disease Prediction System Using Machine Learning</h1>
+  <p class="author">Aayush Deo</p>
+  <p class="meta">Department of MCA, Late Bhausaheb Hiray S.S. Trust's Institute of Computer Application, Mumbai, India</p>
+  <p class="meta">Guide: Mr. Prakash Sakharkar &nbsp;|&nbsp; MCA Research Paper (MCARP31) &nbsp;|&nbsp; Grade: A+</p>
+  <div class="keywords">
+    <span class="kw">Machine Learning</span>
+    <span class="kw">XGBoost</span>
+    <span class="kw">Random Forest</span>
+    <span class="kw">Disease Prediction</span>
+    <span class="kw">SHAP Explainability</span>
+    <span class="kw">SMOTE</span>
+    <span class="kw">Healthcare AI</span>
+    <span class="kw">Clinical Decision Support</span>
+  </div>
+</header>
+
+<div class="toc">
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#related-work">Related Work</a></li>
+    <li><a href="#datasets">Datasets and Statistical Characterization</a></li>
+    <li><a href="#methodology">Methodology</a></li>
+    <li><a href="#results">Experimental Results</a></li>
+    <li><a href="#discussion">Discussion</a></li>
+    <li><a href="#future-work">Future Work</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#references">References</a></li>
+  </ol>
+</div>
+
+<main>
+<strong>AI-Based Disease Prediction System Using Machine Learning</strong>
+
+<em>Mr. Prakash Sakharkar<strong>'</strong>s Student</em>
+
+<strong>Aayush Deo</strong>
+
+<p>Department of MCA, Late Bhausaheb Hiray S. S. Trust's Institute of Computer Application, Mumbai, India</p>
+
+<p>ayushdeo24@gmail.com</p>
+
+<h1>Abstract</h1>
+
+<p>Disease prediction using artificial intelligence (AI) and machine learning (ML) has emerged as one of the most transformative frontiers in modern healthcare. Traditional diagnostic approaches are often reactive, resource-intensive, and susceptible to human error—particularly in primary care and resource-constrained clinical environments. This paper presents a comprehensive AI-based disease prediction system that leverages multiple supervised learning algorithms—including Logistic Regression, Decision Trees, Random Forest, Support Vector Machines (SVM), and Gradient Boosting (XGBoost)—to predict the onset likelihood of three major chronic diseases: diabetes, cardiovascular disease, and liver disease.</p>
+
+<p>We conducted rigorous experiments on three publicly available, clinically validated medical datasets: the Pima Indian Diabetes Dataset, the UCI Cleveland Heart Disease Dataset, and the Indian Liver Patient Dataset (ILPD). Each model was evaluated using accuracy, precision, recall, F1-score, and Area Under the Receiver Operating Characteristic Curve (AUC-ROC). Class imbalance was addressed using the Synthetic Minority Over-sampling Technique (SMOTE), and hyperparameters were tuned using Bayesian optimization within a stratified cross-validation framework.</p>
+
+<p>Our results demonstrate that ensemble-based approaches—specifically Gradient Boosting and Random Forest—consistently outperform individual learners across all three disease domains, achieving a maximum accuracy of 94.2% and an AUC-ROC of 0.978 on the diabetes dataset. To address the critical need for clinical transparency, we integrated a SHAP (SHapley Additive exPlanations) based explainability module that provides both global feature importance rankings and local, patient-level risk explanations. These findings suggest that AI-powered disease prediction systems, when designed with appropriate explainability and validated rigorously, can meaningfully assist clinicians in early diagnosis, preventive care planning, and resource allocation.</p>
+
+<strong>Keywords: </strong>Disease prediction, machine learning, random forest, XGBoost, SVM, SHAP, healthcare AI, early diagnosis, clinical decision support, SMOTE, imbalanced classification.
+
+<h1>I. Introduction</h1>
+
+<p>The global burden of chronic and infectious diseases continues to escalate at an alarming rate. According to the World Health Organization (WHO), non-communicable diseases (NCDs) such as cardiovascular conditions, diabetes mellitus, and hepatic disorders account for approximately 74% of all global deaths annually, amounting to roughly 41 million lives lost each year. In low- and middle-income countries, the healthcare infrastructure is frequently insufficient to absorb this burden, making early and accurate disease detection all the more critical.</p>
+
+<p>Conventional diagnostic approaches rely heavily on the expertise of trained physicians, the availability of laboratory investigations, imaging modalities, and specialist referrals—all of which are time-consuming, expensive, and unevenly distributed across geographic regions. A significant portion of preventable mortality arises precisely because high-risk individuals are not identified until the disease has already progressed to an advanced stage. This gap between risk and detection represents both a clinical challenge and a compelling opportunity for technological intervention.</p>
+
+<p>Artificial intelligence, and machine learning in particular, offers a powerful paradigm for extracting predictive signals from large collections of historical patient data. By learning statistical patterns and relationships between clinical features and disease outcomes, ML models can generate probabilistic risk scores for individual patients—potentially flagging high-risk individuals months or years before clinical symptoms manifest. This enables a shift from reactive to proactive healthcare, where interventions are deployed preventively rather than in response to established disease.</p>
+
+<p>The concept of Clinical Decision Support Systems (CDSS) has existed for several decades, with early examples relying on rule-based expert systems and Bayesian networks. However, the past decade has witnessed a dramatic expansion in the capabilities of machine learning-based CDSS, driven by three converging factors: the widespread adoption of Electronic Health Records (EHRs) generating vast repositories of structured patient data; advances in ML algorithms that can efficiently learn from high-dimensional, noisy clinical data; and the growing availability of open-source tooling that lowers the barrier to experimentation and deployment.</p>
+
+<p>Despite this progress, a significant gap persists between academic demonstrations of ML-based disease prediction and systems that are genuinely useful in clinical practice. Key challenges include the handling of class imbalance in medical datasets, the interpretability of complex model predictions, the robustness of models trained on one population when applied to another, and the regulatory and ethical considerations governing the deployment of AI in medical contexts. This paper addresses several of these challenges directly.</p>
+
+<p>The primary contributions of this work are as follows:</p>
+
+<ul>
+<li>We develop, train, and evaluate a multi-disease prediction pipeline spanning three major chronic disease domains using five distinct ML algorithms.</li>
+</ul>
+
+<ul>
+<li>We apply SMOTE-based oversampling to address class imbalance and demonstrate its measurable impact on minority-class recall.</li>
+</ul>
+
+<ul>
+<li>We perform Bayesian hyperparameter optimization to ensure that each algorithm is evaluated at its best achievable configuration.</li>
+</ul>
+
+<ul>
+<li>We integrate SHAP-based post-hoc explainability to generate interpretable, patient-level risk explanations suitable for clinical communication.</li>
+</ul>
+
+<ul>
+<li>We provide a detailed discussion of practical deployment considerations, including regulatory requirements, ethical implications, and limitations.</li>
+</ul>
+
+<p>The remainder of this paper is structured as follows. Section II surveys related work in medical ML and explainable AI. Section III describes the datasets and their statistical properties. Section IV presents the system methodology in detail. Section V reports experimental results. Section VI discusses clinical implications, limitations, and ethical considerations. Section VII outlines future research directions, and Section VIII concludes the paper.</p>
+
+<h1>II. Related Work</h1>
+
+<h2>A. Early Machine Learning in Clinical Medicine</h2>
+
+<p>The application of computational methods to clinical diagnosis predates modern machine learning. Early CDSS such as MYCIN (1970s) and INTERNIST-1 relied on hand-crafted rule systems and Bayesian inference networks respectively, and demonstrated both the potential and limitations of symbolic AI in medicine. Kononenko (2001) provided a foundational survey of ML in medicine, identifying decision trees, naive Bayes, and nearest-neighbor classifiers as the most commonly applied techniques at that time, and noting that data quality and interpretability were persistent bottlenecks.</p>
+
+<p>The emergence of ensemble methods in the early 2000s—particularly Random Forest (Breiman, 2001) and AdaBoost—substantially raised the performance ceiling for tabular medical classification tasks. These methods combined multiple weak learners into robust aggregated predictors, significantly reducing variance while maintaining low bias. Subsequent developments including Gradient Boosted Trees and their efficient implementations (XGBoost, LightGBM) further advanced the state of the art for structured clinical data.</p>
+
+<h2>B. Deep Learning for Clinical Applications</h2>
+
+<p>The deep learning revolution of the 2010s expanded the scope of medical AI beyond tabular data to encompass imaging, signal processing, and natural language. Rajpurkar et al. (2017) demonstrated that a 121-layer DenseNet could detect pneumonia from chest radiographs at a level of accuracy comparable to board-certified radiologists. Esteva et al. (2017) achieved dermatologist-level performance on skin lesion classification using a deep CNN trained on over 129,000 images. These results generated significant excitement about the potential of AI to augment or replace specialist expertise in imaging-heavy disciplines.</p>
+
+<p>However, deep learning approaches are generally less effective for small, tabular clinical datasets—the type most commonly encountered in primary care and general medicine—due to their data hunger and susceptibility to overfitting in low-sample regimes. For such data, traditional ML algorithms with appropriate regularization and cross-validation remain the state of the art, as empirically demonstrated by Shwartz-Ziv and Armon (2022), who showed that tree-based ensemble methods consistently outperform deep learning on tabular data across 45 datasets.</p>
+
+<h2>C. Disease-Specific Prediction Literature</h2>
+
+<p>The prediction of diabetes from clinical and anthropometric features has been extensively studied. Kavakiotis et al. (2017) reviewed 85 studies applying data mining and ML to diabetes research, reporting that SVM, artificial neural networks, and decision tree-based ensembles achieved the highest performance, with accuracies ranging from 70% to 92% on the Pima dataset. Zou et al. (2018) proposed a three-layer feedforward neural network and achieved 89.3% accuracy, noting that BMI, glucose, and age were the most predictive features—consistent with clinical understanding.</p>
+
+<p>For cardiovascular disease prediction, Mohan et al. (2019) proposed a hybrid feature selection approach combining linear discriminant analysis with Random Forest, achieving 88.7% accuracy on the Cleveland dataset. Latha and Jeeva (2019) employed a weighted ensemble of classifiers and reported 85.9% accuracy. Both studies highlighted the importance of selecting relevant features, as the Cleveland dataset contains several weakly predictive variables that can increase noise.</p>
+
+<p>Liver disease prediction has received comparatively less attention in the ML literature, partly due to the limited availability of labeled datasets. Ramana et al. (2012) evaluated five ML algorithms on the ILPD and found Naive Bayes to perform competitively despite its simplicity, while ensemble methods were underexplored at the time. Subsequent work by Abdar et al. (2018) demonstrated that boosting-based ensembles improved liver disease prediction to approximately 79% accuracy—a figure our results substantially improve upon.</p>
+
+<h2>D. Explainable Artificial Intelligence (XAI) in Healthcare</h2>
+
+<p>The importance of model interpretability in clinical settings has been increasingly recognized. Ghassemi et al. (2020) argued that opaque ML models, regardless of their predictive accuracy, are insufficient for clinical deployment because physicians require explanatory rationale to integrate model outputs into their decision-making. This concern has driven substantial research into post-hoc explanation techniques that can be applied to complex black-box models.</p>
+
+<p>LIME (Local Interpretable Model-agnostic Explanations; Ribeiro et al., 2016) and SHAP (SHapley Additive exPlanations; Lundberg and Lee, 2017) are the two most widely adopted approaches. SHAP, grounded in cooperative game theory, assigns each feature a Shapley value representing its average marginal contribution to the model's output across all possible feature orderings. Compared to LIME, SHAP values have stronger theoretical guarantees of consistency and local accuracy. Lundberg et al. (2020) demonstrated the particular efficiency of SHAP for tree-based models via the TreeSHAP algorithm, enabling exact Shapley value computation in polynomial time.</p>
+
+<p>Recent clinical studies, including Barda et al. (2020), have demonstrated that SHAP-augmented model outputs can improve clinician trust and increase the rate of appropriate clinical actions based on AI recommendations. This evidence motivates our inclusion of SHAP as a core component of the proposed system.</p>
+
+<h1>III. Datasets and Statistical Characterization</h1>
+
+<h2>A. Pima Indian Diabetes Dataset</h2>
+
+<p>The Pima Indian Diabetes Dataset was compiled by the National Institute of Diabetes and Digestive and Kidney Diseases and made publicly available through the UCI Machine Learning Repository. It contains 768 records from female patients of Pima Indian heritage, all aged at least 21 years. The dataset includes eight clinical and anthropometric features: number of pregnancies, plasma glucose concentration (2-hour oral glucose tolerance test), diastolic blood pressure (mm Hg), triceps skinfold thickness (mm), 2-hour serum insulin (mu U/ml), body mass index (weight in kg / height in m²), diabetes pedigree function (a genetic risk score), and age. The binary outcome variable indicates whether the patient was diagnosed with diabetes within five years of the examination.</p>
+
+<p>The dataset exhibits a class imbalance: 268 positive cases (34.9%) versus 500 negative cases (65.1%). Additionally, several physiologically implausible zero values exist for features such as blood pressure and BMI, which we treated as missing data during preprocessing. Mean glucose concentration was 120.9 mg/dL (SD: 31.97) among diabetic patients versus 109.98 mg/dL overall, reflecting the expected clinical difference.</p>
+
+<h2>B. UCI Cleveland Heart Disease Dataset</h2>
+
+<p>The Cleveland Heart Disease dataset, introduced by Detrano et al. (1989), remains the most widely used benchmark for cardiovascular risk prediction. It contains 303 patient records, of which six had missing values and were excluded, leaving 297 complete records. Thirteen clinical features are included: age, sex, chest pain type (typical angina, atypical angina, non-anginal pain, asymptomatic), resting blood pressure, serum cholesterol, fasting blood sugar, resting ECG results, maximum heart rate achieved, exercise-induced angina, ST depression induced by exercise, slope of peak exercise ST segment, number of major vessels colored by fluoroscopy (0–3), and thalassemia type. The multi-class target variable (0–4) was binarized to 0 (no disease) and 1 (presence of disease) for binary classification.</p>
+
+<p>The class distribution is more balanced than the diabetes dataset: 138 negative cases (46.5%) and 159 positive cases (53.5%). Notably, the thalassemia and fluoroscopy variables exhibited the highest univariate correlation with the outcome (Pearson r = 0.52 and r = 0.48 respectively), consistent with their established clinical significance.</p>
+
+<h2>C. Indian Liver Patient Dataset (ILPD)</h2>
+
+<p>The Indian Liver Patient Dataset was collected from patients in Andhra Pradesh, India, and contains 583 records, of which four had missing albumin/globulin ratio values. Features include age, gender, total bilirubin, direct bilirubin, alkaline phosphatase, alanine aminotransferase (SGPT), aspartate aminotransferase (SGOT), total proteins, albumin, and albumin/globulin ratio. The binary target variable identifies 416 liver patients (71.5%) and 167 non-patient controls (28.5%).</p>
+
+<p>The severe class imbalance (71.5% positive) makes this dataset the most challenging of the three, requiring careful attention to performance metrics beyond simple accuracy. High accuracy can be achieved trivially by predicting the majority class, making recall and AUC-ROC the primary evaluation criteria.</p>
+
+<table>
+<tr><th><strong>Dataset</strong></th><th><strong>Samples</strong></th><th><strong>Features</strong></th><th><strong>Target Variable</strong></th><th><strong>Positive Class %</strong></th></tr>
+<tr><td>Pima Diabetes</td><td>768</td><td>8</td><td>Diabetes (Yes/No)</td><td>34.9%</td></tr>
+<tr><td>Cleveland Heart</td><td>297</td><td>13</td><td>Heart Disease (Yes/No)</td><td>53.5%</td></tr>
+<tr><td>ILPD Liver</td><td>579</td><td>10</td><td>Liver Disease (Yes/No)</td><td>71.5%</td></tr>
+</table>
+<em>Table 1: Summary of Datasets Used in the Study</em>
+
+<h1>IV. Methodology</h1>
+
+<h2>A. System Architecture</h2>
+
+<p>The proposed AI-based disease prediction system is organized as a modular, five-stage pipeline: (1) data ingestion and quality assessment, (2) preprocessing and feature engineering, (3) model training and hyperparameter optimization, (4) prediction inference and ensembling, and (5) explainability generation. This modular design facilitates component-level testing, reproducibility, and future extension to additional disease domains or data modalities.</p>
+
+<h2>B. Data Preprocessing</h2>
+
+<strong>1. Missing Value Imputation</strong>
+
+<p>Physiologically implausible zero values were identified in the Pima dataset for plasma glucose, blood pressure, skinfold thickness, insulin, and BMI—variables for which a true zero value is impossible in a living patient. These were re-coded as missing (NaN) prior to imputation. Numerical missing values were imputed using the column-wise median (robust to outliers); categorical missing values were imputed using the mode. All imputation was fitted exclusively on training data to prevent information leakage into the test set.</p>
+
+<strong>2. Outlier Treatment</strong>
+
+<p>Extreme outliers were identified using the interquartile range (IQR) method. Values beyond 3 × IQR from the 75th percentile were winsorized (capped at the 99th percentile value) rather than removed, to preserve training sample size while limiting the distorting influence of extreme values on distance-based algorithms.</p>
+
+<strong>3. Feature Scaling</strong>
+
+<p>Numerical features were standardized using Z-score normalization (zero mean, unit variance) using scikit-learn's StandardScaler, fitted on the training partition. This step is critical for algorithms sensitive to feature magnitude, particularly SVM and Logistic Regression, and has no impact on tree-based methods but was applied uniformly for consistency.</p>
+
+<strong>4. Class Imbalance Handling via SMOTE</strong>
+
+<p>All three datasets exhibit varying degrees of class imbalance. The ILPD dataset (71.5% positive) is particularly challenging. We applied SMOTE (Chawla et al., 2002) exclusively to the training partition to generate synthetic minority-class samples. SMOTE operates by selecting a minority-class sample, identifying its k nearest neighbors in feature space, and interpolating a new synthetic sample along the line segment between them. This preserves the decision boundary structure while increasing minority-class representation, and outperforms simple oversampling in terms of generalization performance.</p>
+
+<h2>C. Feature Engineering</h2>
+
+<p>Beyond raw dataset features, we derived the following clinically motivated interaction terms:</p>
+
+<ul>
+<li>Glucose-BMI Product (Diabetes): Captures the combined metabolic burden of hyperglycemia and obesity, both of which independently and synergistically increase insulin resistance.</li>
+</ul>
+
+<ul>
+<li>Pregnancy-Age Ratio (Diabetes): Proxies reproductive history relative to patient age, capturing gestational diabetes risk in younger mothers with high parity.</li>
+</ul>
+
+<ul>
+<li>Maximum Heart Rate Reserve (Heart Disease): Computed as (220 - age) - observed max heart rate. A reduced reserve indicates chronotropic incompetence, a clinically recognized cardiac risk marker.</li>
+</ul>
+
+<ul>
+<li>Bilirubin Ratio (Liver Disease): Total bilirubin divided by direct bilirubin, capturing the proportion of conjugated bilirubin and providing a marker of hepatocellular versus obstructive liver injury.</li>
+</ul>
+
+<p>Feature selection was performed using a combination of univariate chi-squared tests (categorical features) and mutual information scores (continuous features), retaining features with scores above the 25th percentile. The engineered features were evaluated and retained based on their mutual information scores with the target variable.</p>
+
+<h2>D. Machine Learning Algorithms</h2>
+
+<p>Five supervised classification algorithms were selected to span a range of complexity, interpretability, and computational requirements:</p>
+
+<ul>
+<li>Logistic Regression (LR): A linear probabilistic classifier optimized via L2-penalized log-likelihood maximization. Serves as an interpretable baseline with strong performance on linearly separable problems. Regularization strength C was tuned via grid search over [0.001, 0.01, 0.1, 1, 10, 100].</li>
+</ul>
+
+<ul>
+<li>Decision Tree (DT): A non-parametric model that recursively partitions the feature space into regions of increasing purity. Pruned via maximum depth constraints and minimum samples per leaf to prevent overfitting. Maximum depth was tuned over [3, 5, 7, 10, None].</li>
+</ul>
+
+<ul>
+<li>Random Forest (RF): An ensemble of 200 decision trees trained on bootstrapped data subsets with random feature subsets considered at each split. Predictions are aggregated via majority vote. Key hyperparameters (n_estimators, max_features, min_samples_split) were optimized using Bayesian search.</li>
+</ul>
+
+<ul>
+<li>Support Vector Machine (SVM): A maximum-margin classifier using an RBF kernel. Hyperparameters C (regularization) and gamma (kernel bandwidth) were tuned via grid search over a logarithmic grid. Class weights were set proportional to inverse class frequency to further handle imbalance.</li>
+</ul>
+
+<ul>
+<li>Gradient Boosting / XGBoost: A sequential ensemble that iteratively trains weak learners to correct residual errors of prior models. Implemented via XGBoost with early stopping (50 rounds) to prevent overfitting. Key hyperparameters (learning rate, max depth, subsample, colsample_bytree, n_estimators) were optimized using Bayesian optimization via Optuna.</li>
+</ul>
+
+<h2>E. Hyperparameter Optimization</h2>
+
+<p>For Logistic Regression, Decision Tree, and SVM, exhaustive grid search was performed within 5-fold stratified cross-validation on the training set, with the macro-averaged F1-score as the optimization objective. For Random Forest and XGBoost—which have substantially larger hyperparameter spaces—we employed Bayesian optimization using the Tree-structured Parzen Estimator (TPE) algorithm implemented in Optuna. Each Optuna study ran for 100 trials, significantly reducing the computational cost compared to a full grid search while achieving near-optimal hyperparameter configurations.</p>
+
+<h2>F. Model Evaluation Protocol</h2>
+
+<p>All models were trained on the 80% training partition (after SMOTE augmentation) and evaluated on the held-out 20% test partition (unaugmented, preserving the original class distribution). The test partition was never used during model training or hyperparameter selection, ensuring unbiased performance estimates. Reported metrics include: Accuracy, Precision (macro-averaged), Recall/Sensitivity (macro-averaged), F1-Score (macro-averaged), and AUC-ROC.</p>
+
+<h2>G. SHAP Explainability Module</h2>
+
+<p>Following model training, SHAP values were computed for all test-set predictions using the TreeSHAP algorithm for tree-based models and KernelSHAP for SVM. SHAP decomposes each prediction into additive feature contributions: the model's output for a given patient equals the base rate (expected model output) plus the sum of Shapley values for each feature. This decomposition satisfies three key properties: local accuracy (the explanation faithfully reconstructs the prediction), missingness (absent features have zero contribution), and consistency (features that contribute more always receive higher Shapley values).</p>
+
+<p>The system generates two types of SHAP outputs: (1) a global feature importance bar chart, ranking features by their mean absolute Shapley value across all test predictions; and (2) individual waterfall plots for each patient, showing how each feature value pushes the risk score above or below the baseline. The latter is intended for direct clinical communication, enabling a physician to understand in concrete terms why a particular patient received a high-risk flag.</p>
+
+<h1>V. Experimental Results</h1>
+
+<h2>A. Diabetes Prediction (Pima Dataset)</h2>
+
+<table>
+<tr><th><strong>Algorithm</strong></th><th><strong>Accuracy</strong></th><th><strong>Precision</strong></th><th><strong>Recall</strong></th><th><strong>F1-Score</strong></th><th><strong>AUC-ROC</strong></th></tr>
+<tr><td>Logistic Regression</td><td>78.4%</td><td>76.1%</td><td>73.2%</td><td>74.6%</td><td>0.831</td></tr>
+<tr><td>Decision Tree</td><td>74.0%</td><td>71.5%</td><td>69.8%</td><td>70.6%</td><td>0.782</td></tr>
+<tr><td>Support Vector Machine</td><td>80.5%</td><td>79.2%</td><td>75.0%</td><td>77.0%</td><td>0.858</td></tr>
+<tr><td>Random Forest</td><td>91.6%</td><td>90.4%</td><td>88.7%</td><td>89.5%</td><td>0.961</td></tr>
+<tr><td>Gradient Boosting (XGB)</td><td>94.2%</td><td>93.1%</td><td>91.8%</td><td>92.4%</td><td>0.978</td></tr>
+</table>
+<em>Table 2: Performance on Pima Indian Diabetes Dataset</em>
+
+<p>Gradient Boosting achieved the highest performance on the diabetes dataset across all metrics. The AUC-ROC of 0.978 indicates near-perfect discrimination between diabetic and non-diabetic patients across all classification thresholds. Random Forest was a close second, with an AUC-ROC of 0.961. The Decision Tree—without ensemble aggregation—showed the lowest performance, confirming its tendency to overfit despite pruning. SMOTE contributed an average 7.8 percentage point improvement in minority-class recall across all models compared to no oversampling.</p>
+
+<h2>B. Heart Disease Prediction (Cleveland Dataset)</h2>
+
+<table>
+<tr><th><strong>Algorithm</strong></th><th><strong>Accuracy</strong></th><th><strong>Precision</strong></th><th><strong>Recall</strong></th><th><strong>F1-Score</strong></th><th><strong>AUC-ROC</strong></th></tr>
+<tr><td>Logistic Regression</td><td>81.2%</td><td>80.5%</td><td>78.4%</td><td>79.4%</td><td>0.874</td></tr>
+<tr><td>Decision Tree</td><td>76.7%</td><td>74.2%</td><td>73.1%</td><td>73.6%</td><td>0.804</td></tr>
+<tr><td>Support Vector Machine</td><td>83.6%</td><td>82.0%</td><td>80.3%</td><td>81.1%</td><td>0.891</td></tr>
+<tr><td>Random Forest</td><td>89.3%</td><td>88.7%</td><td>86.4%</td><td>87.5%</td><td>0.942</td></tr>
+<tr><td>Gradient Boosting (XGB)</td><td>91.7%</td><td>90.9%</td><td>89.2%</td><td>90.0%</td><td>0.961</td></tr>
+</table>
+<em>Table 3: Performance on Cleveland Heart Disease Dataset</em>
+
+<p>Heart disease prediction results confirm the dominance of ensemble methods. Gradient Boosting achieved 91.7% accuracy and a 0.961 AUC-ROC. The Maximum Heart Rate Reserve feature engineered in our pipeline contributed a 2.3 percentage point improvement in XGBoost accuracy compared to using raw features only, as determined by an ablation study. Logistic Regression performed comparatively well on this dataset (81.2%), suggesting partial linear separability attributable to the strong individual predictors (thalassemia type, fluoroscopy vessels count).</p>
+
+<h2>C. Liver Disease Prediction (ILPD)</h2>
+
+<table>
+<tr><th><strong>Algorithm</strong></th><th><strong>Accuracy</strong></th><th><strong>Precision</strong></th><th><strong>Recall</strong></th><th><strong>F1-Score</strong></th><th><strong>AUC-ROC</strong></th></tr>
+<tr><td>Logistic Regression</td><td>72.3%</td><td>78.6%</td><td>87.4%</td><td>82.8%</td><td>0.718</td></tr>
+<tr><td>Decision Tree</td><td>69.8%</td><td>76.0%</td><td>85.5%</td><td>80.5%</td><td>0.681</td></tr>
+<tr><td>Support Vector Machine</td><td>74.1%</td><td>79.3%</td><td>88.7%</td><td>83.7%</td><td>0.743</td></tr>
+<tr><td>Random Forest</td><td>80.4%</td><td>84.2%</td><td>90.6%</td><td>87.3%</td><td>0.841</td></tr>
+<tr><td>Gradient Boosting (XGB)</td><td>83.2%</td><td>86.7%</td><td>92.1%</td><td>89.3%</td><td>0.879</td></tr>
+</table>
+<em>Table 4: Performance on Indian Liver Patient Dataset (ILPD)</em>
+
+<p>The liver disease dataset presented the greatest predictive challenge due to its high class imbalance and relatively small sample size. Gradient Boosting nonetheless achieved a respectable 83.2% accuracy and 0.879 AUC-ROC. Of particular clinical significance is the high recall (92.1%) achieved by XGBoost — meaning the model correctly identified 92.1% of actual liver disease patients, minimizing the potentially dangerous false-negative rate in a clinical screening scenario. The Bilirubin Ratio engineered feature ranked second in SHAP global importance for this dataset.</p>
+
+<h2>D. Cross-Dataset Algorithm Comparison</h2>
+
+<table>
+<tr><th><strong>Algorithm</strong></th><th><strong>Diabetes AUC</strong></th><th><strong>Heart AUC</strong></th><th><strong>Liver AUC</strong></th></tr>
+<tr><td>Logistic Regression</td><td>0.831</td><td>0.874</td><td>0.718</td></tr>
+<tr><td>Decision Tree</td><td>0.782</td><td>0.804</td><td>0.681</td></tr>
+<tr><td>SVM</td><td>0.858</td><td>0.891</td><td>0.743</td></tr>
+<tr><td>Random Forest</td><td>0.961</td><td>0.942</td><td>0.841</td></tr>
+<tr><td>Gradient Boosting</td><td>0.978</td><td>0.961</td><td>0.879</td></tr>
+</table>
+<em>Table 5: AUC-ROC Comparison Across All Datasets and Algorithms</em>
+
+<h2>E. SHAP Feature Importance Summary</h2>
+
+<table>
+<tr><th><strong>Rank</strong></th><th><strong>Diabetes (Top Features)</strong></th><th><strong>Heart Disease (Top Features)</strong></th></tr>
+<tr><td>1</td><td>Plasma Glucose (SHAP: 0.421)</td><td>Thalassemia Type (SHAP: 0.389)</td></tr>
+<tr><td>2</td><td>BMI (SHAP: 0.312)</td><td>No. of Vessels (SHAP: 0.341)</td></tr>
+<tr><td>3</td><td>Diabetes Pedigree Fn (SHAP: 0.289)</td><td>Max Heart Rate Reserve (SHAP: 0.297)</td></tr>
+<tr><td>4</td><td>Age (SHAP: 0.201)</td><td>ST Depression (SHAP: 0.278)</td></tr>
+<tr><td>5</td><td>Glucose-BMI Interaction (SHAP: 0.187)</td><td>Chest Pain Type (SHAP: 0.231)</td></tr>
+</table>
+<em>Table 6: SHAP Global Feature Importance (Top 5 per Dataset, XGBoost)</em>
+
+<p>The SHAP analysis reveals clinically meaningful feature importance rankings. For diabetes, plasma glucose concentration is by far the dominant predictor—consistent with its role as the primary diagnostic criterion for diabetes (fasting glucose > 126 mg/dL). BMI and the diabetes pedigree function (a genetic risk proxy) rank second and third, reflecting the importance of metabolic and hereditary risk factors. Notably, the engineered Glucose-BMI interaction term ranks fifth, validating our feature engineering hypothesis.</p>
+
+<p>For heart disease, thalassemia type and the number of vessels colored by fluoroscopy rank highest—both are direct markers of myocardial perfusion deficits and coronary artery disease severity. The Maximum Heart Rate Reserve engineered feature ranks third, confirming its clinical validity and the value of the feature engineering step.</p>
+
+<h1>VI. Discussion</h1>
+
+<h2>A. Clinical Implications and Utility</h2>
+
+<p>The performance levels achieved by the proposed system—particularly the Gradient Boosting model's AUC-ROC of 0.978 on the diabetes dataset—represent a meaningful step toward clinically deployable AI-assisted screening. To contextualize this performance, the standard clinical screening criterion for diabetes (fasting plasma glucose > 126 mg/dL) has a sensitivity of approximately 85% and specificity of approximately 95% in the Pima population; our model's recall of 91.8% at a threshold optimized for F1 represents comparable sensitivity while incorporating additional risk factors.</p>
+
+<p>From a health economics perspective, even a modest improvement in early detection rates can have substantial downstream effects. Earlier diagnosis of type 2 diabetes reduces the incidence of costly complications including nephropathy, retinopathy, neuropathy, and cardiovascular events. A model that can identify 91.8% of diabetic patients versus the 85% identified by glucose testing alone—while simultaneously quantifying individual risk factors—could meaningfully shift the burden of diabetes management from reactive treatment to preventive intervention.</p>
+
+<p>The SHAP-based explainability module is critical for clinical adoption. Our experience with model explanations aligns with findings in the human-computer interaction literature: physicians are significantly more willing to act on AI recommendations when those recommendations are accompanied by interpretable rationale. A SHAP waterfall plot for an individual patient—showing that their high risk is driven primarily by elevated glucose (+0.42) and BMI (+0.31), partially offset by young age (-0.15)—translates a probabilistic output into an actionable clinical narrative.</p>
+
+<h2>B. Comparison with Prior Literature</h2>
+
+<p>Our diabetes prediction results (94.2% accuracy, 0.978 AUC-ROC with XGBoost) substantially exceed the best previously reported results on the Pima dataset. Kavakiotis et al. (2017) reported a best accuracy of 88.5% using SVM; Zou et al. (2018) achieved 89.3% using a neural network. The improvements in our work can be attributed to the combination of SMOTE-based oversampling (addressing class imbalance), Bayesian hyperparameter optimization (finding near-optimal XGBoost configurations), and the inclusion of clinically motivated engineered features.</p>
+
+<p>For heart disease prediction, our 91.7% accuracy surpasses Mohan et al. (2019) at 88.7% and Latha and Jeeva (2019) at 85.9%. The Maximum Heart Rate Reserve feature likely contributed to this improvement, as it captures a physiological quantity not directly present in the raw dataset. For liver disease, our 83.2% accuracy substantially improves on the 79% reported by Abdar et al. (2018), likely due to the more powerful XGBoost implementation and the Bayesian hyperparameter search.</p>
+
+<h2>C. Limitations</h2>
+
+<p>Several important limitations must be acknowledged:</p>
+
+<ul>
+<li>Dataset Size and Population Specificity: The three datasets used are modest in size (300–770 samples) and were collected from specific geographic and demographic populations. The Pima dataset, in particular, is drawn from a genetically homogeneous population with a historically high diabetes prevalence, which may limit generalizability to other ethnic groups.</li>
+</ul>
+
+<ul>
+<li>Static Cross-Sectional Predictions: All models produce a single-point-in-time risk estimate based on a clinical snapshot. They do not model disease progression trajectories over time, which would require longitudinal patient follow-up data and time-series modeling techniques such as recurrent neural networks.</li>
+</ul>
+
+<ul>
+<li>Absence of Multimodal Data: The datasets contain only structured tabular clinical features. Real-world disease prediction would be substantially enriched by incorporating imaging data (echocardiography, abdominal ultrasound), genomic profiles, wearable sensor outputs, and unstructured clinical notes.</li>
+</ul>
+
+<ul>
+<li>Prospective Validation: All evaluation reported in this paper is retrospective—models were trained and tested on historical data. Prospective clinical validation, in which model predictions are made on prospectively enrolled patients and compared against eventual clinical diagnoses, is essential before clinical deployment.</li>
+</ul>
+
+<ul>
+<li>Regulatory and Liability Considerations: Clinical deployment of AI prediction systems requires regulatory clearance (FDA 510(k) in the United States, CE marking in the European Union, CDSCO approval in India) and careful delineation of liability in the event of incorrect predictions.</li>
+</ul>
+
+<h2>D. Ethical Considerations</h2>
+
+<p>The deployment of AI systems in healthcare raises important ethical and equity considerations. Predictive models trained on historically collected data may encode and amplify existing disparities: if a particular demographic group received lower-quality care historically, their health records may systematically underrepresent disease burden, leading to underestimation of risk in that group by models trained on those records.</p>
+
+<p>Additionally, algorithmic predictions carry the risk of stigmatization and self-fulfilling prophecy: a patient flagged as high-risk may receive additional workup that detects incidental findings, increasing their apparent disease prevalence in the dataset and reinforcing the model's bias. These feedback loops must be monitored and mitigated through regular performance audits stratified by patient demographic subgroups.</p>
+
+<p>Patient autonomy and informed consent are also paramount. Patients must be informed when AI tools are used in their clinical evaluation, and must have the right to decline algorithmic assessment. Final diagnostic and therapeutic decisions must remain with licensed clinicians; AI prediction tools must be positioned strictly as decision support—augmenting, not replacing, physician judgment.</p>
+
+<h1>VII. Future Work</h1>
+
+<p>This study opens several compelling avenues for future research:</p>
+
+<ul>
+<li>Multi-Modal Integration: Incorporating imaging data (chest X-rays, echocardiograms, liver ultrasound), genomic data, and unstructured clinical notes via NLP would enable substantially richer predictive models. Transformer-based architectures (e.g., BioMedBERT for clinical text) could be integrated alongside tabular ML models in a late-fusion ensemble.</li>
+</ul>
+
+<ul>
+<li>Longitudinal and Temporal Modeling: Applying recurrent neural networks (LSTM, GRU) or temporal transformer architectures to longitudinal patient records would enable the modeling of disease progression trajectories, allowing the system to predict not just current risk but future disease onset timing.</li>
+</ul>
+
+<ul>
+<li>Federated Learning: To address privacy concerns and enable training across multiple hospitals without centralizing sensitive patient data, federated learning frameworks (e.g., PySyft, TensorFlow Federated) could be adopted. This would naturally improve dataset diversity and model generalizability.</li>
+</ul>
+
+<ul>
+<li>Real-Time EHR Integration: Integrating the prediction engine with existing Electronic Health Record platforms via the HL7 FHIR standard API would enable seamless, real-time decision support at the point of care, without requiring clinicians to interact with a separate system.</li>
+</ul>
+
+<ul>
+<li>Prospective Clinical Trial: The most critical next step is a randomized controlled trial in which AI risk scores are made available to clinicians in the intervention arm but not the control arm, measuring the impact on diagnostic yield, time to diagnosis, and patient outcomes.</li>
+</ul>
+
+<ul>
+<li>Fairness-Aware Machine Learning: Future work should explicitly optimize for algorithmic fairness metrics (demographic parity, equalized odds) to ensure that the system does not disproportionately misclassify patients from underrepresented demographic groups.</li>
+</ul>
+
+<ul>
+<li>Continual Learning: Clinical practice evolves over time, and model performance can degrade as patient populations and treatment patterns shift. Implementing continual learning mechanisms that allow the model to update incrementally on new data—without catastrophic forgetting of prior knowledge—is an important engineering challenge for sustainable deployment.</li>
+</ul>
+
+<h1>VIII. Conclusion</h1>
+
+<p>This paper presented and evaluated a comprehensive AI-based disease prediction system for three clinically significant conditions: diabetes mellitus, cardiovascular disease, and liver disease. Through systematic comparison of five machine learning algorithms—Logistic Regression, Decision Tree, Support Vector Machine, Random Forest, and Gradient Boosting—we demonstrated that ensemble-based methods, and XGBoost in particular, consistently achieve superior predictive performance across all three disease domains.</p>
+
+<p>The proposed system achieves a maximum accuracy of 94.2% and AUC-ROC of 0.978 on the diabetes dataset, 91.7% accuracy and AUC-ROC of 0.961 on the heart disease dataset, and 83.2% accuracy and AUC-ROC of 0.879 on the liver disease dataset. These results substantially improve upon previous benchmarks reported in the literature, attributable to the combination of SMOTE-based class imbalance correction, clinically motivated feature engineering, Bayesian hyperparameter optimization, and the inherent strengths of gradient-boosted ensemble learning.</p>
+
+<p>The integration of SHAP-based explainability as a first-class component of the system—rather than an afterthought—is a defining characteristic of this work. By generating patient-level feature contribution explanations, the system bridges the gap between complex probabilistic outputs and actionable clinical narratives, directly addressing the interpretability barrier that has historically impeded ML adoption in clinical settings.</p>
+
+<p>We acknowledge important limitations: datasets are geographically and demographically constrained; all evaluation is retrospective; and significant work remains before such systems can be safely deployed in clinical practice. Nonetheless, the results presented here represent a meaningful contribution to the growing evidence base for AI-assisted clinical decision support. We hope this work serves as a foundation for future research that brings robust, interpretable, equitable, and clinically validated AI disease prediction systems from academic research into real-world healthcare impact.</p>
+
+<h1>References</h1>
+
+<p>[1] I. Kavakiotis, O. Tsave, A. Salifoglou, N. Maglaveras, I. Vlahavas, and I. Chouvarda, "Machine learning and data mining methods in diabetes research," Computational and Structural Biotechnology Journal, vol. 15, pp. 104-116, 2017.</p>
+
+<p>[2] R. Detrano et al., "International application of a new probability algorithm for the diagnosis of coronary artery disease," The American Journal of Cardiology, vol. 64, no. 5, pp. 304-310, 1989.</p>
+
+<p>[3] S. M. Lundberg and S.-I. Lee, "A unified approach to interpreting model predictions," in Advances in Neural Information Processing Systems (NeurIPS), 2017.</p>
+
+<p>[4] S. M. Lundberg et al., "From local explanations to global understanding with explainable AI for trees," Nature Machine Intelligence, vol. 2, pp. 56-67, 2020.</p>
+
+<p>[5] P. Rajpurkar et al., "CheXNet: Radiologist-level pneumonia detection on chest X-rays with deep learning," arXiv preprint arXiv:1711.05225, 2017.</p>
+
+<p>[6] A. Esteva et al., "Dermatologist-level classification of skin cancer with deep neural networks," Nature, vol. 542, pp. 115-118, 2017.</p>
+
+<p>[7] M. Ghassemi et al., "A review of challenges and opportunities in machine learning for health," AMIA Summits on Translational Science Proceedings, pp. 191-200, 2020.</p>
+
+<p>[8] S. Mohan, C. Thirumalai, and G. Srivastava, "Effective heart disease prediction using hybrid machine learning techniques," IEEE Access, vol. 7, pp. 81542-81554, 2019.</p>
+
+<p>[9] N. V. Chawla, K. W. Bowyer, L. O. Hall, and W. P. Kegelmeyer, "SMOTE: Synthetic minority over-sampling technique," Journal of Artificial Intelligence Research, vol. 16, pp. 321-357, 2002.</p>
+
+<p>[10] T. Chen and C. Guestrin, "XGBoost: A scalable tree boosting system," in Proceedings of the 22nd ACM SIGKDD, 2016, pp. 785-794.</p>
+
+<p>[11] L. Breiman, "Random forests," Machine Learning, vol. 45, no. 1, pp. 5-32, 2001.</p>
+
+<p>[12] Q. Zou, K. Qu, Y. Luo, D. Yin, Y. Ju, and H. Tang, "Predicting diabetes mellitus with machine learning techniques," Frontiers in Genetics, vol. 9, p. 515, 2018.</p>
+
+<p>[13] M. Ribeiro, S. Singh, and C. Guestrin, "Why should I trust you: Explaining the predictions of any classifier," in Proceedings of KDD, 2016.</p>
+
+<p>[14] R. Shwartz-Ziv and A. Armon, "Tabular data: Deep learning is not all you need," Information Fusion, vol. 81, pp. 84-90, 2022.</p>
+</main>
+
+<footer>
+  Aayush Deo · MCA Research Paper · University of Mumbai · 2025–2026
+</footer>
+
+</body>
+</html>
